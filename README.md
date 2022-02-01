@@ -5,7 +5,7 @@
 My application will center around the concept
 of flashcards and allow users to:
 
-- create their own decks of flashcards
+- create/delete their own decks of flashcards
 - review their flashcards
 - see statistics about their progress on decks
 
@@ -18,4 +18,11 @@ something that I would use personally. Ever since I discovered the
 power of flashcards in grade 11 summer school, I have been using them
 any time I need to memorize something.
 
+## User Stories
+
+- As a user, I want to be able to create a new flashcard and add it to an existing or new deck
+- As a user, I want to be able to review a flashcard(s) (see front and back)
+- As a user, I want to be able to view all my decks of flashcards
+- As a user, I want to be able to delete a flashcard or deck
+- As a user, I want to be able to see the number of flashcards I have reviewed in each deck
  
