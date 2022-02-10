@@ -20,10 +20,12 @@ any time I need to memorize something.
 
 ## User Stories
 
-- As a user, I want to be able to create a new flashcard/s and add it/them to an existing or new deck
+- As a user, I want to be able to create a new deck of flashcards
+- As a user, I want to be able to create a new flashcard/s and add it/them to a deck
 - As a user, I want to be able to review a flashcard/s (see front and back)
 - As a user, I want to be able to view all my decks of flashcards
 - As a user, I want to be able to delete a flashcard or deck
 - As a user, I want to be able to edit a flashcard
+- As a user, I want to be able to pick up where I last left off on a deck
 - As a user, I want to be able to see the number of flashcards I have reviewed in each deck
  

@@ -1,40 +1,37 @@
 package model;
 
 public class Flashcard {
+    private String frontText;
+    private String backText;
 
     // REQUIRES: frontText and backText are not the empty string
     // EFFECTS: constructs a flashcard with the given font and back texts
     public Flashcard(String frontText, String backText) {
-        // stub
-    }
-
-    // MODIFIES: this
-    // EFFECTS: marks the flashcard as reviewed
-    public void markCardDone() {
-        //stub
+        this.frontText = frontText;
+        this.backText = backText;
     }
 
     // REQUIRES: frontText is not the empty string
     // MODIFIES: this
     // EFFECTS: sets flashcard's front text to the given string
     public void setFrontText(String frontText) {
-        // stub
+        this.frontText = frontText;
     }
 
     // REQUIRES: backText is not the empty string
     // MODIFIES: this
     // EFFECTS: sets flashcard's front text to the given string
     public void setBackText(String backText) {
-        // stub
+        this.backText = backText;
     }
 
     // getters
     public String getFrontText() {
-        return null; //stub
+        return frontText;
     }
 
     public String getBackText() {
-        return null; //stub
+        return backText;
     }
 
 
