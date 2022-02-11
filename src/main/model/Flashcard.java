@@ -12,7 +12,7 @@ public class Flashcard {
     private boolean reviewedStatus;
 
     // REQUIRES: frontText and backText are not the empty string
-    // EFFECTS: constructs a flashcard with the given font and back texts
+    // EFFECTS: constructs a flashcard with the given font and back texts and a reviewed status of false
     public Flashcard(String frontText, String backText) {
         this.frontText = frontText;
         this.backText = backText;

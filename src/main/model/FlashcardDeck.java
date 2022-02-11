@@ -4,23 +4,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 /*
-Represents a deck of flashcards. A deck has a name, the index of the current card is the user is to review,
-and the number of cards reviewed so far (will reset once all reviewed).
+Represents a deck of flashcards. A deck has a name and the index of the current card the user is to review.
  */
 
 public class FlashcardDeck {
     private List<Flashcard> deck;
     private String name;
     private int currentCard;
-    private int cardsReviewed;
 
     // REQUIRES: name is not the empty string
-    // EFFECTS: constructs a flashcard deck with given name, 0 cards in deck, -1 current card and 0 cards reviewed
+    // EFFECTS: constructs a flashcard deck with given name, an empty deck, and 0 current card
     public FlashcardDeck(String name) {
         deck = new LinkedList<>();
         this.name = name;
         currentCard = 0;
-        cardsReviewed = 0;
     }
 
     // MODIFIES: this
@@ -29,14 +26,14 @@ public class FlashcardDeck {
         deck.add(card);
     }
 
-    // REQUIRES: Deck has at least one card and cardNumber >= 0 and < length of deck
+    // REQUIRES: Deck has at least one card and cardIndex >= 0 and < length of deck
     // MODIFIES: this
-    // EFFECTS: deletes card in deck with index of cardNumber
+    // EFFECTS: deletes card in deck at the given index
     public void deleteCard(int cardIndex) {
         deck.remove(cardIndex);
     }
 
-    // REQUIRES: Deck has at least one card and cardNumber >= 0 and < length of deck
+    // REQUIRES: Deck has the given card in it
     // MODIFIES: this
     // EFFECTS: removes the given card from the deck
     public void deleteCard(Flashcard card) {
@@ -48,6 +45,7 @@ public class FlashcardDeck {
         return deck.size();
     }
 
+    // REQUIRES: deck is not empty
     // MODIFIES: this
     // EFFECTS: increases current card by 1, if increasing goes over deck length, reset to 0
     public void increaseCurrentCard() {
@@ -60,6 +58,7 @@ public class FlashcardDeck {
         }
     }
 
+    // REQUIRES: deck is not empty
     // MODIFIES: this
     // EFFECTS: decreases current card by 1, if decreasing goes to less than 0, reset to end of deck
     public void decreaseCurrentCard() {
@@ -72,7 +71,7 @@ public class FlashcardDeck {
         }
     }
 
-    // EFFECTS: returns the number of cards reviewed in deck
+    // EFFECTS: returns the number of cards that have been reviewed in deck
     public int getCardsReviewed() {
         int amountReviewed = 0;
         for (Flashcard card : deck) {
@@ -94,22 +93,11 @@ public class FlashcardDeck {
     }
 
     // REQUIRES: deck that resetDeck() is called on must be done (all cards reviewed)
-    // MODIFIES: this
+    // MODIFIES: card
     // EFFECTS: resets deck by setting all cards as not reviewed
     public void resetDeck() {
         for (Flashcard card : deck) {
             card.setAsNotReviewed();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: increases the amount of cards reviewed by one. If increasing goes over amount of cards in deck,
-    // reset to 0
-    public void increaseCardsReviewed() {
-        cardsReviewed++;
-
-        if (cardsReviewed > deck.size()) {
-            cardsReviewed = 0;
         }
     }
 
@@ -126,10 +114,6 @@ public class FlashcardDeck {
 
     public int getCurrentCardNum() {
         return currentCard;
-    }
-
-    public int getNumCardsReviewed() {
-        return cardsReviewed;
     }
 
     // REQUIRES: deck has at least one card and cardIndex >= 0 and < length of deck

@@ -83,6 +83,7 @@ public class FlashcardApp {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: processes user command
     private void processMenuCommands(String command) {
         if (command.equals("r")) {
@@ -102,7 +103,7 @@ public class FlashcardApp {
         }
     }
 
-    // EFFECTS: allows user to review a deck
+    // EFFECTS: asks user to choose a deck to review, then cycles through cards of deck
     private void reviewDeck() {
         System.out.println("Choose a deck to review (enter the number):");
         displayDecks();
@@ -205,7 +206,8 @@ public class FlashcardApp {
         System.out.println("\tq -> quit to main menu");
     }
 
-    // MODIFIES: card
+    // REQUIRES: deck as at least one card in it
+    // MODIFIES: card, deck
     // EFFECT: processes commands that act on a card
     private void processCardFrontCommands(String command, Flashcard card, FlashcardDeck deck) {
         if (command.equals("n")) {
@@ -226,7 +228,7 @@ public class FlashcardApp {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: deck
     // REQUIRES: deck has at least one card in it
     // EFFECTS: checks if all cards have reviewed and resets it if all reviewed and increases current card by 1,
     // then displays the card's front text
@@ -240,7 +242,7 @@ public class FlashcardApp {
         System.out.println("Front:\n" + card.getFrontText());
     }
 
-    // MODIFIES: this
+    // MODIFIES: deck
     // REQUIRES: deck has at least one card in it
     // EFFECTS: checks if all cards have reviewed and resets it if all reviewed and decreases current card by 1,
     // then displays the card's front text
@@ -299,14 +301,14 @@ public class FlashcardApp {
     // MODIFIES: this
     // EFFECTS: adds a new deck to user's list of decks
     private void addDeck() {
-        String command;
+        String name;
         FlashcardDeck newDeck;
 
         System.out.println("Enter name of new deck:");
 
-        command = input.next();
+        name = input.next();
 
-        newDeck = new FlashcardDeck(command);
+        newDeck = new FlashcardDeck(name);
 
         decks.add(newDeck);
 
@@ -335,7 +337,7 @@ public class FlashcardApp {
     }
 
     // REQUIRES: at least one existing deck
-    // MODIFIES: this
+    // MODIFIES: deck
     // EFFECTS: edits a deck based on user commands
     private void editDeck() {
         String command;
@@ -372,6 +374,7 @@ public class FlashcardApp {
         System.out.println("\tq -> quit to main menu");
     }
 
+    // MODIFIES: deck
     // EFFECTS: processes edit deck command
     private void processDeckCommands(String command, FlashcardDeck deck) {
         if (command.equals("a")) {

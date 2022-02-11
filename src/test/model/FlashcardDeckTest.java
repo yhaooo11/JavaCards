@@ -17,7 +17,6 @@ class FlashcardDeckTest {
     void testConstructor() {
         assertEquals("Test Deck", testDeck.getName());
         assertEquals(0, testDeck.length());
-        assertEquals(0, testDeck.getNumCardsReviewed());
         assertEquals(0, testDeck.getCurrentCardNum());
     }
 
@@ -26,7 +25,6 @@ class FlashcardDeckTest {
         Flashcard card = new Flashcard("Front", "Back");
         testDeck.addCard(card);
         assertEquals(1, testDeck.length());
-        assertEquals(0, testDeck.getNumCardsReviewed());
         assertEquals(card, testDeck.getCard(0));
     }
 
@@ -80,39 +78,6 @@ class FlashcardDeckTest {
         testDeck.deleteCard(card3);
         assertEquals(1, testDeck.length());
         assertEquals(card2, testDeck.getCard(0));
-    }
-
-    @Test
-    void testIncreaseCardsReviewed() {
-        Flashcard card1 = new Flashcard("card 1 front", "card 1 back");
-        Flashcard card2 = new Flashcard("card 2 front", "card 2 back");
-        testDeck.addCard(card1);
-        testDeck.addCard(card2);
-
-
-        testDeck.increaseCardsReviewed();
-        assertEquals(1, testDeck.getNumCardsReviewed());
-
-        testDeck.increaseCardsReviewed();
-        assertEquals(2, testDeck.getNumCardsReviewed());
-    }
-
-    @Test
-    void testIncreaseCardsReviewedReset() {
-        Flashcard card1 = new Flashcard("card 1 front", "card 1 back");
-        Flashcard card2 = new Flashcard("card 2 front", "card 2 back");
-        testDeck.addCard(card1);
-        testDeck.addCard(card2);
-
-
-        testDeck.increaseCardsReviewed();
-        assertEquals(1, testDeck.getNumCardsReviewed());
-
-        testDeck.increaseCardsReviewed();
-        assertEquals(2, testDeck.getNumCardsReviewed());
-
-        testDeck.increaseCardsReviewed();
-        assertEquals(0, testDeck.getNumCardsReviewed());
     }
 
     @Test
