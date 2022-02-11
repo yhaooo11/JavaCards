@@ -107,9 +107,9 @@ public class FlashcardApp {
     private void reviewDeck() {
         System.out.println("Choose a deck to review (enter the number):");
         displayDecks();
-        String command = input.next();
+        String num = input.next();
 
-        int deckNum = Integer.parseInt(command);
+        int deckNum = Integer.parseInt(num);
         if (!checkDeckNum(deckNum)) {
             return;
         }
@@ -340,13 +340,13 @@ public class FlashcardApp {
     // MODIFIES: deck
     // EFFECTS: edits a deck based on user commands
     private void editDeck() {
-        String command;
+        String numInput;
         boolean keepGoing = true;
 
         System.out.println("Enter the number of the deck you want to edit:");
 
-        command = input.next();
-        int deckNum = Integer.parseInt(command);
+        numInput = input.next();
+        int deckNum = Integer.parseInt(numInput);
         if (deckNum > decks.size() || deckNum < 0) {
             System.out.println("Not a valid deck number...");
             return;
@@ -357,11 +357,11 @@ public class FlashcardApp {
         while (keepGoing) {
             displayEditDeckCommands();
 
-            command = input.next();
-            if (command.equals("q")) {
+            numInput = input.next();
+            if (numInput.equals("q")) {
                 keepGoing = false;
             } else {
-                processDeckCommands(command, deck);
+                processDeckCommands(numInput, deck);
             }
         }
     }
