@@ -5,8 +5,8 @@
 My application will center around the concept
 of *flashcards* and allow users to:
 
-- *create/delete* their own decks of flashcards
-- *review* their flashcards
+- *create/delete/edit* their own decks of flashcards
+- *review* their decks of flashcards
 - *see statistics* about their progress on decks
 
 As flashcards are primarily used as an aid for memorization, 
