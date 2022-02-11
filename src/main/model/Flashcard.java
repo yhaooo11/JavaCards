@@ -1,5 +1,11 @@
 package model;
 
+/*
+Represents a flashcard in a deck.
+A flashcard has a front text, back text, and a reviewed status.
+The reviewed status is true if the card's front and back as been seen and false otherwise.
+ */
+
 public class Flashcard {
     private String frontText;
     private String backText;

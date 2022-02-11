@@ -6,6 +6,11 @@ import model.FlashcardDeck;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/*
+Represents the console-based flashcard app. Allows user to add, delete, edit, and review decks
+of flashcards.
+ */
+
 public class FlashcardApp {
     private LinkedList<FlashcardDeck> decks;
     private Scanner input;
@@ -46,14 +51,6 @@ public class FlashcardApp {
     // EFFECTS: initializes user's decks and scanner
     private void init() {
         decks = new LinkedList<>();
-        FlashcardDeck deck = new FlashcardDeck("Deck 1");
-        Flashcard card1 = new Flashcard("front 1", "back 1");
-        Flashcard card2 = new Flashcard("front 2", "back 2");
-        Flashcard card3 = new Flashcard("front 3", "back 3");
-        deck.addCard(card1);
-        deck.addCard(card2);
-        deck.addCard(card3);
-        decks.add(deck);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -157,7 +154,6 @@ public class FlashcardApp {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         System.out.println("Back:\n" + card.getBackText());
         card.setAsReviewed();
-        deck.increaseCardsReviewed();
         displayCardBackCommands();
     }
 

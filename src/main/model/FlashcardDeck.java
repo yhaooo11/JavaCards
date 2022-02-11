@@ -3,8 +3,11 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-// Represents a deck of flashcards with a name. currentCard is the card the user is to review. cardsReviewed is the
-// number of cards reviewed so far.
+/*
+Represents a deck of flashcards. A deck has a name, the index of the current card is the user is to review,
+and the number of cards reviewed so far (will reset once all reviewed).
+ */
+
 public class FlashcardDeck {
     private List<Flashcard> deck;
     private String name;
