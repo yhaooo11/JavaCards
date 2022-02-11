@@ -16,11 +16,10 @@ public class FlashcardDeck {
     public FlashcardDeck(String name) {
         deck = new LinkedList<>();
         this.name = name;
-        currentCard = -1;
+        currentCard = 0;
         cardsReviewed = 0;
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     // EFFECTS: adds the given flashcard to the end of the deck
     public void addCard(Flashcard card) {
@@ -34,19 +33,70 @@ public class FlashcardDeck {
         deck.remove(cardIndex);
     }
 
-    // REQUIRES: Deck has at least one card in it
-    // EFFECTS: gets next card in deck to review and increments currentCard by one. If at last card, getNextCard will
-    // return the first card in the deck.
-    public Flashcard getNextCard() {
-        currentCard++;
+    // REQUIRES: Deck has at least one card and cardNumber >= 0 and < length of deck
+    // MODIFIES: this
+    // EFFECTS: removes the given card from the deck
+    public void deleteCard(Flashcard card) {
+        deck.remove(card);
+    }
 
-        if (currentCard == deck.size()) {
+    // EFFECTS: returns the number of cards in this deck
+    public int length() {
+        return deck.size();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: increases current card by 1, if increasing goes over deck length, reset to 0
+    public void increaseCurrentCard() {
+        int nextCard = currentCard + 1;
+
+        if (nextCard >= deck.size()) {
             currentCard = 0;
-            return deck.get(0);
+        } else {
+            currentCard++;
         }
+    }
 
-        return deck.get(currentCard);
+    // MODIFIES: this
+    // EFFECTS: decreases current card by 1, if decreasing goes to less than 0, reset to end of deck
+    public void decreaseCurrentCard() {
+        int nextCard = currentCard - 1;
 
+        if (nextCard < 0) {
+            currentCard = deck.size() - 1;
+        } else {
+            currentCard--;
+        }
+    }
+
+    // EFFECTS: returns the number of cards reviewed in deck
+    public int getCardsReviewed() {
+        int amountReviewed = 0;
+        for (Flashcard card : deck) {
+            if (card.getReviewedStatus()) {
+                amountReviewed++;
+            }
+        }
+        return amountReviewed;
+    }
+
+    // EFFECTS: returns true if all cards in deck have been reviewed
+    public boolean isDeckDone() {
+        for (Flashcard card : deck) {
+            if (!card.getReviewedStatus()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // REQUIRES: deck that resetDeck() is called on must be done (all cards reviewed)
+    // MODIFIES: this
+    // EFFECTS: resets deck by setting all cards as not reviewed
+    public void resetDeck() {
+        for (Flashcard card : deck) {
+            card.setAsNotReviewed();
+        }
     }
 
     // MODIFIES: this
@@ -60,10 +110,13 @@ public class FlashcardDeck {
         }
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: sets name of deck to given name
+    public void setName(String name) {
+        this.name = name;
+    }
 
     // getters
-
     public String getName() {
         return name;
     }
@@ -76,12 +129,9 @@ public class FlashcardDeck {
         return cardsReviewed;
     }
 
+    // REQUIRES: deck has at least one card and cardIndex >= 0 and < length of deck
+    // EFFECT: returns the card in deck at given index
     public Flashcard getCard(int cardIndex) {
         return deck.get(cardIndex);
-    }
-
-    // EFFECTS: returns the number of cards in this deck
-    public int length() {
-        return deck.size();
     }
 }

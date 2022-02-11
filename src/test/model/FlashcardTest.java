@@ -18,6 +18,7 @@ public class FlashcardTest {
     void testConstructor() {
         assertEquals("Front", testFlashcard.getFrontText());
         assertEquals("Back", testFlashcard.getBackText());
+        assertFalse(testFlashcard.getReviewedStatus());
     }
 
     @Test
@@ -30,6 +31,25 @@ public class FlashcardTest {
     void testSetBackText() {
         testFlashcard.setBackText("New Back");
         assertEquals("New Back", testFlashcard.getBackText());
+    }
+
+    @Test
+    void testSetAsReviewed() {
+        testFlashcard.setAsReviewed();
+        assertTrue(testFlashcard.getReviewedStatus());
+
+        testFlashcard.setAsReviewed();
+        assertTrue(testFlashcard.getReviewedStatus());
+    }
+
+    @Test
+    void testSetAsNotReviewed() {
+        testFlashcard.setAsNotReviewed();
+        assertFalse(testFlashcard.getReviewedStatus());
+
+        testFlashcard.setAsReviewed();
+        testFlashcard.setAsNotReviewed();
+        assertFalse(testFlashcard.getReviewedStatus());
     }
 
 }
