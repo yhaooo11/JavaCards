@@ -127,24 +127,26 @@ public class FlashcardApp {
     // EFFECTS: cycles through the cards in a deck with commands on what to do
     private void goThroughCards(Flashcard card, FlashcardDeck deck) {
         boolean keepGoing = true;
-        String command;
         while (keepGoing) {
             displayCardFrontCommands();
-            command = input.next();
-            command = command.toLowerCase();
+            String command = input.next();
             if (command.equals("q")) {
                 keepGoing = false;
             } else if (command.equals("b")) {
                 doBackCard(deck);
                 command = input.next();
-                command = command.toLowerCase();
                 if (command.equals("q")) {
                     keepGoing = false;
                 } else {
                     processCardBackCommands(command, card, deck);
+                    card = deck.getCard(deck.getCurrentCardNum());
                 }
+            } else if (command.equals("d") && deck.length() == 1) {
+                deck.deleteCard(deck.getCurrentCardNum());
+                keepGoing = false;
             } else {
                 processCardFrontCommands(command, card, deck);
+                card = deck.getCard(deck.getCurrentCardNum());
             }
         }
     }
@@ -187,8 +189,7 @@ public class FlashcardApp {
             doEditCard(card);
         } else if (command.equals("d")) {
             int cardNum = deck.getCurrentCardNum();
-            card = deck.getCard(cardNum);
-            deck.deleteCard(card);
+            deck.deleteCard(cardNum);
             System.out.println("The card has been deleted.");
         } else {
             System.out.println("Selection not valid...");
@@ -220,8 +221,7 @@ public class FlashcardApp {
             doEditCard(card);
         } else if (command.equals("d")) {
             int cardNum = deck.getCurrentCardNum();
-            card = deck.getCard(cardNum);
-            deck.deleteCard(card);
+            deck.deleteCard(cardNum);
             System.out.println("The card has been deleted.");
         } else {
             System.out.println("Selection not valid...");
