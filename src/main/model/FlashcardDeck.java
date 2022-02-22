@@ -110,6 +110,32 @@ public class FlashcardDeck {
         }
     }
 
+    // MODIFIES: deck
+    // REQUIRES: deck has at least one card in it
+    // EFFECTS: checks if all cards have reviewed and resets it if all reviewed and increases current card by 1,
+    // then returns new current card
+    public Flashcard getNextCard() {
+        if (isDeckDone()) {
+            resetDeck();
+        }
+        increaseCurrentCard();
+        int cardNum = getCurrentCardNum();
+        return getCard(cardNum);
+    }
+
+    // MODIFIES: deck
+    // REQUIRES: deck has at least one card in it
+    // EFFECTS: checks if all cards have reviewed and resets it if all reviewed and decreases current card by 1,
+    // then returns new current card
+    public Flashcard getPreviousCard() {
+        if (isDeckDone()) {
+            resetDeck();
+        }
+        decreaseCurrentCard();
+        int cardNum = getCurrentCardNum();
+        return getCard(cardNum);
+    }
+
     // MODIFIES: this
     // EFFECTS: sets name of deck to given name
     public void setName(String name) {

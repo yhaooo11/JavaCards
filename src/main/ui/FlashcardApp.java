@@ -144,7 +144,7 @@ public class FlashcardApp {
     }
 
 
-    // MODIFIES: card, deck
+    // MODIFIES: deck
     // EFFECTS: displays back of card and marks it as reviewed, then displays commands, processes commands
     private boolean showBackCard(FlashcardDeck deck) {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
@@ -184,10 +184,12 @@ public class FlashcardApp {
             System.out.println("Front:\n" + card.getFrontText());
             return true;
         } else if (command.equals("n")) {
-            nextCard(deck);
+            card = deck.getNextCard();
+            System.out.println("Front:\n" + card.getFrontText());
             return true;
         } else if (command.equals("p")) {
-            previousCard(deck);
+            card = deck.getPreviousCard();
+            System.out.println("Front:\n" + card.getFrontText());
             return true;
         } else if (command.equals("e")) {
             int cardNum = deck.getCurrentCardNum();
@@ -234,10 +236,12 @@ public class FlashcardApp {
     // EFFECT: processes commands that act on a card
     private boolean processCardFrontCommands(String command, FlashcardDeck deck) {
         if (command.equals("n")) {
-            nextCard(deck);
+            Flashcard card = deck.getNextCard();
+            System.out.println("Front:\n" + card.getFrontText());
             return true;
         } else if (command.equals("p")) {
-            previousCard(deck);
+            Flashcard card = deck.getPreviousCard();
+            System.out.println("Front:\n" + card.getFrontText());
             return true;
         } else if (command.equals("e")) {
             int cardNum = deck.getCurrentCardNum();
@@ -251,34 +255,6 @@ public class FlashcardApp {
             System.out.println("Selection not valid...");
             return true;
         }
-    }
-
-    // MODIFIES: deck
-    // REQUIRES: deck has at least one card in it
-    // EFFECTS: checks if all cards have reviewed and resets it if all reviewed and increases current card by 1,
-    // then displays the card's front text
-    private void nextCard(FlashcardDeck deck) {
-        if (deck.isDeckDone()) {
-            deck.resetDeck();
-        }
-        deck.increaseCurrentCard();
-        int cardNum = deck.getCurrentCardNum();
-        Flashcard card = deck.getCard(cardNum);
-        System.out.println("Front:\n" + card.getFrontText());
-    }
-
-    // MODIFIES: deck
-    // REQUIRES: deck has at least one card in it
-    // EFFECTS: checks if all cards have reviewed and resets it if all reviewed and decreases current card by 1,
-    // then displays the card's front text
-    private void previousCard(FlashcardDeck deck) {
-        if (deck.isDeckDone()) {
-            deck.resetDeck();
-        }
-        deck.decreaseCurrentCard();
-        int cardNum = deck.getCurrentCardNum();
-        Flashcard card = deck.getCard(cardNum);
-        System.out.println("Front:\n" + card.getFrontText());
     }
 
     // EFFECTS: displays card back commands
