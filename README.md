@@ -22,7 +22,7 @@ any time I need to memorize something.
 
 - As a user, I want to be able to create a new deck of flashcards
 - As a user, I want to be able to create a new flashcard/s and add it/them to a deck
-- As a user, I want to be able to review a flashcard/s (see front and back)
+- As a user, I want to be able to review a flashcard/s (see front and back, loop through cards)
 - As a user, I want to be able to view all my decks of flashcards
 - As a user, I want to be able to delete a flashcard or deck
 - As a user, I want to be able to edit a flashcard

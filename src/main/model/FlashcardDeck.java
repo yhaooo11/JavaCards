@@ -31,13 +31,22 @@ public class FlashcardDeck {
     // EFFECTS: deletes card in deck at the given index
     public void deleteCard(int cardIndex) {
         deck.remove(cardIndex);
+
+        if (cardIndex == length()) {
+            currentCard = 0;
+        }
     }
 
     // REQUIRES: Deck has the given card in it
     // MODIFIES: this
-    // EFFECTS: removes the given card from the deck
+    // EFFECTS: removes the given card from the deck, if removing last card, set currentCard to 0
     public void deleteCard(Flashcard card) {
+        int index = deck.indexOf(card);
         deck.remove(card);
+
+        if (index == length()) {
+            currentCard = 0;
+        }
     }
 
     // EFFECTS: returns the number of cards in this deck

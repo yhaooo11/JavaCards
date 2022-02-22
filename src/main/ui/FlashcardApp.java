@@ -120,12 +120,12 @@ public class FlashcardApp {
 
         System.out.println("Front:\n" + card.getFrontText());
 
-        goThroughCards(card, deck);
+        goThroughCards(deck);
 
     }
 
     // EFFECTS: cycles through the cards in a deck with commands on what to do
-    private void goThroughCards(Flashcard card, FlashcardDeck deck) {
+    private void goThroughCards(FlashcardDeck deck) {
         boolean keepGoing = true;
         while (keepGoing) {
             displayCardFrontCommands();
@@ -133,31 +133,34 @@ public class FlashcardApp {
             if (command.equals("q")) {
                 keepGoing = false;
             } else if (command.equals("b")) {
-                doBackCard(deck);
-                command = input.next();
-                if (command.equals("q")) {
-                    keepGoing = false;
-                } else {
-                    processCardBackCommands(command, card, deck);
-                    card = deck.getCard(deck.getCurrentCardNum());
-                }
-            } else if (command.equals("d") && deck.length() == 1) {
-                deck.deleteCard(deck.getCurrentCardNum());
-                keepGoing = false;
+                keepGoing = showBackCard(deck);
             } else {
-                processCardFrontCommands(command, card, deck);
-                card = deck.getCard(deck.getCurrentCardNum());
+                keepGoing = processCardFrontCommands(command, deck);
+                if (keepGoing) {
+                    Flashcard card = deck.getCard(deck.getCurrentCardNum());
+                }
             }
         }
     }
 
+
     // MODIFIES: card, deck
-    // EFFECTS: displays back of card and marks it as reviewed, then displays commands
-    private void doBackCard(FlashcardDeck deck) {
+    // EFFECTS: displays back of card and marks it as reviewed, then displays commands, processes commands
+    private boolean showBackCard(FlashcardDeck deck) {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         System.out.println("Back:\n" + card.getBackText());
         card.setAsReviewed();
         displayCardBackCommands();
+        String command = input.next();
+        if (command.equals("q")) {
+            return false;
+        } else {
+            boolean keepGoing = processCardBackCommands(command, card, deck);
+            if (keepGoing) {
+                card = deck.getCard(deck.getCurrentCardNum());
+            }
+            return keepGoing;
+        }
     }
 
     // EFFECTS: returns true if deck number is valid, false otherwise
@@ -176,23 +179,42 @@ public class FlashcardApp {
 
     // MODIFIES: card
     // EFFECTS: processes user command when on back of a card
-    private void processCardBackCommands(String command, Flashcard card, FlashcardDeck deck) {
+    private boolean processCardBackCommands(String command, Flashcard card, FlashcardDeck deck) {
         if (command.equals("f")) {
             System.out.println("Front:\n" + card.getFrontText());
+            return true;
         } else if (command.equals("n")) {
             nextCard(deck);
+            return true;
         } else if (command.equals("p")) {
             previousCard(deck);
+            return true;
         } else if (command.equals("e")) {
             int cardNum = deck.getCurrentCardNum();
             card = deck.getCard(cardNum);
             doEditCard(card);
+            return true;
         } else if (command.equals("d")) {
             int cardNum = deck.getCurrentCardNum();
-            deck.deleteCard(cardNum);
-            System.out.println("The card has been deleted.");
+            return deleteCard(cardNum, deck);
         } else {
             System.out.println("Selection not valid...");
+            return true;
+        }
+    }
+
+    // MODIFIES: deck
+    // EFFECTS: if deck length = 1, deletes card at cardNum index and returns false. Otherwise, delete card at
+    //          cardNum index and return true.
+    private boolean deleteCard(int cardNum, FlashcardDeck deck) {
+        if (deck.length() == 1) {
+            deck.deleteCard(cardNum);
+            System.out.println("The card has been deleted.");
+            return false;
+        } else {
+            deck.deleteCard(cardNum);
+            System.out.println("The card has been deleted.");
+            return true;
         }
     }
 
@@ -210,21 +232,24 @@ public class FlashcardApp {
     // REQUIRES: deck as at least one card in it
     // MODIFIES: card, deck
     // EFFECT: processes commands that act on a card
-    private void processCardFrontCommands(String command, Flashcard card, FlashcardDeck deck) {
+    private boolean processCardFrontCommands(String command, FlashcardDeck deck) {
         if (command.equals("n")) {
             nextCard(deck);
+            return true;
         } else if (command.equals("p")) {
             previousCard(deck);
+            return true;
         } else if (command.equals("e")) {
             int cardNum = deck.getCurrentCardNum();
-            card = deck.getCard(cardNum);
+            Flashcard card = deck.getCard(cardNum);
             doEditCard(card);
+            return true;
         } else if (command.equals("d")) {
             int cardNum = deck.getCurrentCardNum();
-            deck.deleteCard(cardNum);
-            System.out.println("The card has been deleted.");
+            return deleteCard(cardNum, deck);
         } else {
             System.out.println("Selection not valid...");
+            return true;
         }
     }
 

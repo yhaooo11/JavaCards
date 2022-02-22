@@ -55,10 +55,12 @@ class FlashcardDeckTest {
         assertEquals(2, testDeck.length());
         assertEquals(card2, testDeck.getCard(0));
         assertEquals(card3, testDeck.getCard(1));
+        assertEquals(0, testDeck.getCurrentCardNum());
 
         testDeck.deleteCard(1);
         assertEquals(1, testDeck.length());
         assertEquals(card2, testDeck.getCard(0));
+        assertEquals(0, testDeck.getCurrentCardNum());
     }
 
     @Test
@@ -74,10 +76,38 @@ class FlashcardDeckTest {
         assertEquals(2, testDeck.length());
         assertEquals(card2, testDeck.getCard(0));
         assertEquals(card3, testDeck.getCard(1));
+        assertEquals(0, testDeck.getCurrentCardNum());
 
         testDeck.deleteCard(card3);
         assertEquals(1, testDeck.length());
         assertEquals(card2, testDeck.getCard(0));
+        assertEquals(0, testDeck.getCurrentCardNum());
+    }
+
+    @Test
+    void testDeleteCardIndexLastCard() {
+        Flashcard card1 = new Flashcard("card 1 front", "card 1 back");
+        Flashcard card2 = new Flashcard("card 2 front", "card 2 back");
+        testDeck.addCard(card1);
+        testDeck.addCard(card2);
+
+        testDeck.deleteCard(1);
+        assertEquals(1, testDeck.length());
+        assertEquals(card1, testDeck.getCard(0));
+        assertEquals(0, testDeck.getCurrentCardNum());
+    }
+
+    @Test
+    void testDeleteCardObjectLastCard() {
+        Flashcard card1 = new Flashcard("card 1 front", "card 1 back");
+        Flashcard card2 = new Flashcard("card 2 front", "card 2 back");
+        testDeck.addCard(card1);
+        testDeck.addCard(card2);
+
+        testDeck.deleteCard(card2);
+        assertEquals(1, testDeck.length());
+        assertEquals(card1, testDeck.getCard(0));
+        assertEquals(0, testDeck.getCurrentCardNum());
     }
 
     @Test
