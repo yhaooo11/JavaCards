@@ -2,7 +2,9 @@ package ui;
 
 import model.Flashcard;
 import model.FlashcardDeck;
+import persistence.JsonReader;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -12,8 +14,10 @@ of flashcards.
  */
 
 public class FlashcardApp {
+    private static final String JSON_STORE = "./data/decks.json";
     private LinkedList<FlashcardDeck> decks;
     private Scanner input;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the flashcard application
     public FlashcardApp() {
@@ -53,6 +57,19 @@ public class FlashcardApp {
         decks = new LinkedList<>();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonReader = new JsonReader(JSON_STORE);
+        loadDecks();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadDecks() {
+        try {
+            decks = jsonReader.read();
+            System.out.println("Loaded decks from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     // EFFECTS: displays menu of options to user

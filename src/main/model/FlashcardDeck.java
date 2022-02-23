@@ -142,6 +142,14 @@ public class FlashcardDeck {
         this.name = name;
     }
 
+    // MODIFIES: this
+    // REQUIRES: num >= 0
+    // EFFECTS: sets currentCard to the given integer
+    public void setCurrentCard(int num) {
+        currentCard = num;
+    }
+
+
     // getters
     public String getName() {
         return name;
