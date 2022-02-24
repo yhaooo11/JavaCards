@@ -3,7 +3,9 @@ package ui;
 import model.Flashcard;
 import model.FlashcardDeck;
 import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -18,6 +20,7 @@ public class FlashcardApp {
     private LinkedList<FlashcardDeck> decks;
     private Scanner input;
     private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     // EFFECTS: runs the flashcard application
     public FlashcardApp() {
@@ -40,6 +43,7 @@ public class FlashcardApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
+                remindSave();
                 keepGoing = false;
             } else {
                 processMenuCommands(command);
@@ -58,6 +62,7 @@ public class FlashcardApp {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
         loadDecks();
     }
 
@@ -66,7 +71,7 @@ public class FlashcardApp {
     private void loadDecks() {
         try {
             decks = jsonReader.read();
-            System.out.println("Loaded decks from " + JSON_STORE);
+            System.out.println("Loaded " + decks.size() + " decks from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
@@ -87,6 +92,7 @@ public class FlashcardApp {
             System.out.println("\ta -> add a deck");
             System.out.println("\td -> delete a deck");
             System.out.println("\te -> edit a deck");
+            System.out.println("\ts -> save decks to file");
             System.out.println("\tq -> quit");
         }
     }
@@ -115,8 +121,37 @@ public class FlashcardApp {
             }
         } else if (command.equals("e")) {
             editDeck();
+        } else if (command.equals("s")) {
+            saveDecks();
         } else {
             System.out.println("Selection not valid...");
+        }
+    }
+
+
+    // EFFECTS: asks user if they would like to save decks to file
+    private void remindSave() {
+        String command;
+        System.out.println("Would you like to save your decks to file?");
+        System.out.println("\ty -> save");
+        System.out.println("\tn -> don't save");
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("y")) {
+            saveDecks();
+        }
+    }
+
+    // EFFECTS: saves all decks to file
+    private void saveDecks() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(decks);
+            jsonWriter.close();
+            System.out.println("Saved " + decks.size() + " decks to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 

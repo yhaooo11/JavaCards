@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +11,7 @@ import java.util.List;
 Represents a deck of flashcards. A deck has a name and the index of the current card the user is to review.
  */
 
-public class FlashcardDeck {
+public class FlashcardDeck implements Writable {
     private List<Flashcard> deck;
     private String name;
     private int currentCard;
@@ -149,7 +153,6 @@ public class FlashcardDeck {
         currentCard = num;
     }
 
-
     // getters
     public String getName() {
         return name;
@@ -163,5 +166,24 @@ public class FlashcardDeck {
     // EFFECT: returns the card in deck at given index
     public Flashcard getCard(int cardIndex) {
         return deck.get(cardIndex);
+    }
+
+    @Override
+    // EFFECTS: returns this deck as a JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.name);
+        json.put("currentCard", this.currentCard);
+        json.put("cards", cardsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns cards in this deck as a JSON array
+    private JSONArray cardsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Flashcard card : deck) {
+            jsonArray.put(card.toJson());
+        }
+        return jsonArray;
     }
 }

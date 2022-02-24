@@ -6,7 +6,10 @@ A flashcard has a front text, back text, and a reviewed status.
 The reviewed status is true if the card's front and back as been seen and false otherwise.
  */
 
-public class Flashcard {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Flashcard implements Writable {
     private String frontText;
     private String backText;
     private boolean reviewedStatus;
@@ -45,6 +48,16 @@ public class Flashcard {
         reviewedStatus = false;
     }
 
+    @Override
+    // EFFECTS: returns this card as a JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("front", frontText);
+        json.put("back", backText);
+        json.put("reviewedStatus", reviewedStatus);
+        return json;
+    }
+
     // getters
     public String getFrontText() {
         return frontText;
@@ -57,4 +70,6 @@ public class Flashcard {
     public boolean getReviewedStatus() {
         return reviewedStatus;
     }
+
+
 }

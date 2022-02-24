@@ -23,14 +23,5 @@
         ],
         "currentCard": 1,
         "name": "deck2"
-    },
-    {
-        "cards": [{
-            "back": "THIS IS CRAZY",
-            "front": "OMG",
-            "reviewedStatus": false
-        }],
-        "currentCard": 0,
-        "name": "deck3"
     }
 ]}
