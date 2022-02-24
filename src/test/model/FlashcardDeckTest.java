@@ -305,4 +305,14 @@ class FlashcardDeckTest {
         assertFalse(card1.getReviewedStatus());
         assertFalse(card2.getReviewedStatus());
     }
+
+    @Test
+    void testSetCurrentCard() {
+        Flashcard card1 = new Flashcard("card 1 front", "card 1 back");
+        Flashcard card2 = new Flashcard("card 2 front", "card 2 back");
+        testDeck.addCard(card1);
+        testDeck.addCard(card2);
+        testDeck.setCurrentCard(1);
+        assertEquals(1, testDeck.getCurrentCardNum());
+    }
 }

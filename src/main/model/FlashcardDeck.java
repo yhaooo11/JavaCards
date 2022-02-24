@@ -147,7 +147,7 @@ public class FlashcardDeck implements Writable {
     }
 
     // MODIFIES: this
-    // REQUIRES: num >= 0
+    // REQUIRES: num >= 0 and < length of deck
     // EFFECTS: sets currentCard to the given integer
     public void setCurrentCard(int num) {
         currentCard = num;
