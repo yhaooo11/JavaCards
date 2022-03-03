@@ -314,5 +314,8 @@ class FlashcardDeckTest {
         testDeck.addCard(card2);
         testDeck.setCurrentCard(1);
         assertEquals(1, testDeck.getCurrentCardNum());
+
+        testDeck.setCurrentCard(0);
+        assertEquals(0, testDeck.getCurrentCardNum());
     }
 }

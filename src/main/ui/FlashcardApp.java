@@ -56,7 +56,7 @@ public class FlashcardApp {
     // source: TellerApp
     // https://github.students.cs.ubc.ca/CPSC210/TellerApp/blob/master/src/main/ca/ubc/cpsc210/bank/ui/TellerApp.java
     // MODIFIES: this
-    // EFFECTS: initializes user's decks and scanner
+    // EFFECTS: initializes user's decks, jsonReader/Writer, and scanner
     private void init() {
         decks = new LinkedList<>();
         input = new Scanner(System.in);
@@ -67,7 +67,7 @@ public class FlashcardApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads decks from file
     private void loadDecks() {
         try {
             decks = jsonReader.read();
@@ -128,7 +128,6 @@ public class FlashcardApp {
         }
     }
 
-
     // EFFECTS: asks user if they would like to save decks to file
     private void remindSave() {
         String command;
@@ -143,6 +142,7 @@ public class FlashcardApp {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: saves all decks to file
     private void saveDecks() {
         try {

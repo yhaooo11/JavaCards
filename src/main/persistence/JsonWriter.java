@@ -35,11 +35,9 @@ public class JsonWriter {
         JSONArray jsonArray = new JSONArray();
         for (FlashcardDeck deck : decks) {
             jsonArray.put(deck.toJson());
-            // put deck into JSONArray
         }
         JSONObject json = new JSONObject();
         json.put("decks", jsonArray);
-        // put JSONArray into file
         saveToFile(json.toString(TAB));
     }
 

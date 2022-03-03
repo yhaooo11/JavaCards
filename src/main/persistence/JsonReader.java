@@ -50,7 +50,7 @@ public class JsonReader {
         return listOfDecks;
     }
 
-    // MODIFIES: decks
+    // MODIFIES: decks, deck
     // EFFECTS: parses decks from JSON object and adds them to list of decks
     private void addDecks(LinkedList<FlashcardDeck> decks, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("decks");
