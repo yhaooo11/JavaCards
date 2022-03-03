@@ -334,7 +334,7 @@ public class FlashcardApp {
     }
 
     // MODIFIES: card
-    // EFFECTS: processes card command
+    // EFFECTS: processes edit card command
     private void processEditCardCommand(String command, Flashcard card) {
         if (command.equals("f")) {
             System.out.println("Enter new front text:");
@@ -414,7 +414,7 @@ public class FlashcardApp {
             if (numInput.equals("q")) {
                 keepGoing = false;
             } else {
-                processDeckCommands(numInput, deck);
+                processEditDeckCommands(numInput, deck);
             }
         }
     }
@@ -429,7 +429,7 @@ public class FlashcardApp {
 
     // MODIFIES: deck
     // EFFECTS: processes edit deck command
-    private void processDeckCommands(String command, FlashcardDeck deck) {
+    private void processEditDeckCommands(String command, FlashcardDeck deck) {
         if (command.equals("a")) {
             String frontText;
             String backText;
