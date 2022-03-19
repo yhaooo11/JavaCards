@@ -1,36 +1,21 @@
-{"decks": [
-    {
-        "cards": [{
-            "back": "back text",
-            "front": "front text",
+{"decks": [{
+    "cards": [
+        {
+            "back": "b1",
+            "front": "f1",
             "reviewedStatus": false
-        }],
-        "currentCard": 0,
-        "name": "deck1"
-    },
-    {
-        "cards": [
-            {
-                "back": "back text 1",
-                "front": "front text 1",
-                "reviewedStatus": true
-            },
-            {
-                "back": "back text 2",
-                "front": "front text 2",
-                "reviewedStatus": true
-            }
-        ],
-        "currentCard": 1,
-        "name": "deck2"
-    },
-    {
-        "cards": [{
-            "back": "THIS IS CRAZY",
-            "front": "OMG",
+        },
+        {
+            "back": "b2",
+            "front": "f2",
             "reviewedStatus": false
-        }],
-        "currentCard": 0,
-        "name": "deck3"
-    }
-]}
+        },
+        {
+            "back": "b3",
+            "front": "f3",
+            "reviewedStatus": false
+        }
+    ],
+    "currentCard": 0,
+    "name": "new deck"
+}]}
