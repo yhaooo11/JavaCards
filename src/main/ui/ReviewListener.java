@@ -11,7 +11,6 @@ import java.util.LinkedList;
 
 // Represents the event listener for the review button
 public class ReviewListener implements ActionListener {
-    // need main frame so i can update decks list.
     private LinkedList<FlashcardDeck> decks;
     private JList list;
     private JFrame frame;
@@ -25,7 +24,7 @@ public class ReviewListener implements ActionListener {
 
     private FlashcardDeck deck;
 
-    // creates a review listener with given flashcard decks and JList
+    // EFFECTS: creates a review listener with given flashcard decks, JList, and FlashcardAppGUI
     public ReviewListener(LinkedList<FlashcardDeck> decks, JList list, FlashcardAppGUI mainFrame) {
         this.decks = decks;
         this.list = list;
@@ -33,6 +32,7 @@ public class ReviewListener implements ActionListener {
     }
 
 
+    // MODIFIES: this
     // EFFECTS: creates the review window
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -57,9 +57,11 @@ public class ReviewListener implements ActionListener {
         } else if (e.getActionCommand().equals("delete")) {
             deleteCard();
         }
-        //System.out.println(list.getSelectedIndex());
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates review frame with control buttons and card front text that updates deck list
+    // component on close
     private void createReviewWindow() {
         frame = new JFrame("Reviewing " + deck.getName());
         frame.setLayout(new BorderLayout());
@@ -75,7 +77,6 @@ public class ReviewListener implements ActionListener {
                 mainFrame.updateDecksList();
                 mainFrame.repaint();
                 System.out.println(deck.getCardsReviewed());
-                //System.exit(0);
             }
         });
 
@@ -86,6 +87,8 @@ public class ReviewListener implements ActionListener {
         frame.setResizable(false);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates JPanel with card front text and adds to frame
     private void createCardPanel() {
         cardPanel = new JPanel();
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
@@ -99,6 +102,8 @@ public class ReviewListener implements ActionListener {
         frame.add(cardPanel, BorderLayout.CENTER);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates control buttons (front of card version) and adds to frame
     private void createReviewButtonsFront() {
         JPanel innerButtonPanel = new JPanel();
         innerButtonPanel.setLayout(new BoxLayout(innerButtonPanel, BoxLayout.X_AXIS));
@@ -136,6 +141,8 @@ public class ReviewListener implements ActionListener {
         frame.add(buttonPanel, BorderLayout.PAGE_END);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates control buttons (back of card version) and adds to frame
     private void createReviewButtonsBack() {
         JPanel innerButtonPanel = new JPanel();
         innerButtonPanel.setLayout(new BoxLayout(innerButtonPanel, BoxLayout.X_AXIS));
@@ -173,6 +180,8 @@ public class ReviewListener implements ActionListener {
         frame.add(buttonPanel, BorderLayout.PAGE_END);
     }
 
+    // MODIFIES: this
+    // EFFECTS: go to next card and displays front text
     private void showNextCard() {
         Flashcard card = deck.getNextCard();
         cardText.setText(card.getFrontText());
@@ -181,6 +190,8 @@ public class ReviewListener implements ActionListener {
         frame.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: go to previous card and displays front text
     private void showPreviousCard() {
         Flashcard card = deck.getPreviousCard();
         cardText.setText(card.getFrontText());
@@ -189,6 +200,8 @@ public class ReviewListener implements ActionListener {
         frame.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays card back text
     private void showCardBack() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         card.setAsReviewed();
@@ -198,6 +211,8 @@ public class ReviewListener implements ActionListener {
         frame.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays card front text
     private void showCardFront() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         cardText.setText(card.getFrontText());
@@ -206,6 +221,8 @@ public class ReviewListener implements ActionListener {
         frame.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates edit card window with two text fields and confirm button
     private void createEditCardWindow() {
         editFrame = new JFrame("Edit Card");
         editFrame.setLayout(new BoxLayout(editFrame.getContentPane(), BoxLayout.Y_AXIS));
@@ -240,6 +257,8 @@ public class ReviewListener implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes card front and back text to the user inputted ones
     private void confirmEdit() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         card.setFrontText(frontTextField.getText());
@@ -248,6 +267,8 @@ public class ReviewListener implements ActionListener {
         showCardFront();
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes card, if last card in deck, closes review window
     private void deleteCard() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
 

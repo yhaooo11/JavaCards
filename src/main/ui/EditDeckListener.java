@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-// Represents the action listener for the edit deck button and corresponding buttons
+// Represents the action listener for the edit deck button and associated buttons
 public class EditDeckListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
     private JList list;
@@ -23,7 +23,7 @@ public class EditDeckListener implements ActionListener {
     private JTextField backTextField;
     private JPanel confirmTextPanel;
 
-    // EFFECTS: constructs an edit deck listener with given decks, JList, and the main frame
+    // EFFECTS: constructs an edit deck listener with given decks, JList, and FlashcardAppGUI
     public EditDeckListener(LinkedList<FlashcardDeck> decks, JList list, FlashcardAppGUI mainFrame) {
         this.decks = decks;
         this.list = list;
@@ -32,7 +32,7 @@ public class EditDeckListener implements ActionListener {
     }
 
     @Override
-    // MODIFIES: deck
+    // MODIFIES: this
     // EFFECTS: processes action commands
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Edit deck")) {
@@ -90,7 +90,8 @@ public class EditDeckListener implements ActionListener {
         frame.setResizable(false);
     }
 
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: creates edit deck name frame with text field and confirm button
     private void editDeckName() {
         editNameFrame = new JFrame();
         editNameFrame.setLayout(new BoxLayout(editNameFrame.getContentPane(), BoxLayout.Y_AXIS));
@@ -117,6 +118,8 @@ public class EditDeckListener implements ActionListener {
         editNameFrame.setResizable(false);
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates deck name and main frame
     private void changeDeckName() {
         FlashcardDeck deck = decks.get(list.getSelectedIndex());
 
@@ -129,6 +132,8 @@ public class EditDeckListener implements ActionListener {
         mainFrame.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates add card frame with 2 text fields and a button
     private void addCardFrame() {
         addCardFrame = new JFrame();
 
@@ -165,6 +170,8 @@ public class EditDeckListener implements ActionListener {
         addCardFrame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds card with user inputted front and back text to deck
     private void addCard() {
         String frontText = frontTextField.getText();
         String backText = backTextField.getText();
