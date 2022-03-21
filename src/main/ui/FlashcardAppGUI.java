@@ -3,7 +3,9 @@ package ui;
 import model.FlashcardDeck;
 import persistence.JsonReader;
 
+// source: https://docs.oracle.com/javase/7/docs/api/javax/imageio/ImageIO.html
 import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

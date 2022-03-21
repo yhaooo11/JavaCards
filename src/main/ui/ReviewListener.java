@@ -213,6 +213,7 @@ public class ReviewListener implements ActionListener {
         cardText.setText(card.getBackText());
         frame.remove(buttonPanel);
         createReviewButtonsBack();
+        frame.pack();
         frame.repaint();
     }
 
@@ -223,6 +224,7 @@ public class ReviewListener implements ActionListener {
         cardText.setText(card.getFrontText());
         frame.remove(buttonPanel);
         createReviewButtonsFront();
+        frame.pack();
         frame.repaint();
     }
 
