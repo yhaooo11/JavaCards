@@ -30,7 +30,7 @@ public class SaveListener implements ActionListener {
 
     // MODIFIES: this, json store file
     // EFFECTS: saves all decks to file
-    private void saveDecks() {
+    public void saveDecks() {
         try {
             jsonWriter.open();
             jsonWriter.write(decks);

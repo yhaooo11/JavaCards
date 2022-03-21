@@ -1,21 +1,28 @@
-{"decks": [{
-    "cards": [
-        {
-            "back": "b1",
-            "front": "f1",
-            "reviewedStatus": false
-        },
-        {
-            "back": "b2",
-            "front": "f2",
-            "reviewedStatus": false
-        },
-        {
-            "back": "b3",
-            "front": "f3",
-            "reviewedStatus": false
-        }
-    ],
-    "currentCard": 0,
-    "name": "new deck"
-}]}
+{"decks": [
+    {
+        "cards": [
+            {
+                "back": "b1",
+                "front": "f1",
+                "reviewedStatus": false
+            },
+            {
+                "back": "b2",
+                "front": "f2",
+                "reviewedStatus": false
+            },
+            {
+                "back": "b3",
+                "front": "f3",
+                "reviewedStatus": false
+            }
+        ],
+        "currentCard": 0,
+        "name": "new deck"
+    },
+    {
+        "cards": [],
+        "currentCard": 0,
+        "name": "new deck 2"
+    }
+]}

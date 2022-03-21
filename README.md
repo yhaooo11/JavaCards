@@ -28,6 +28,6 @@ any time I need to memorize something.
 - As a user, I want to be able to edit a flashcard
 - As a user, I want to be able to pick up where I last left off on a deck
 - As a user, I want to be able to see the number of flashcards I have reviewed in each deck
-- As a user, I want to be able to save all decks (and their cards) to file and be reminded to save when I select quit 
+- As a user, I want to be able to save all decks (and their cards) to file and save automatically on close
 - As a user, I want to be able to automatically load my decks from file on start
  

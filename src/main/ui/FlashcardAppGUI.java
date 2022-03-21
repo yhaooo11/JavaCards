@@ -3,14 +3,18 @@ package ui;
 import model.FlashcardDeck;
 import persistence.JsonReader;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
 // Represents a graphical user interface for a flashcard app
-
 public class FlashcardAppGUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 500;
@@ -21,11 +25,19 @@ public class FlashcardAppGUI extends JFrame {
     private JList list;
     private DefaultListModel listModel;
 
-    // EFFECTS: runs the flashcard app GUI
+    // EFFECTS: runs the flashcard app GUI (saves decks on close)
     public FlashcardAppGUI() {
         super("Flashcard App");
         initFields();
+        createLoadingScreen();
         initGraphics();
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                SaveListener saveListener = new SaveListener(decks);
+                saveListener.saveDecks();
+            }
+        });
     }
 
     // MODIFIES: this
@@ -34,6 +46,53 @@ public class FlashcardAppGUI extends JFrame {
         decks = new LinkedList<>();
         jsonReader = new JsonReader(JSON_STORE);
         loadDecks();
+    }
+
+    // EFFECTS: creates splash screen for 8 seconds
+    private void createLoadingScreen() {
+        JFrame loadingScreenFrame = new JFrame();
+        loadingScreenFrame.setLayout(new BorderLayout());
+        JPanel loadingTextPanel = new JPanel();
+        loadingTextPanel.setBackground(Color.white);
+        JLabel loadingLabel = new JLabel("Loading");
+        loadingTextPanel.add(loadingLabel);
+        BufferedImage loadingScreenImage = null;
+        try {
+            loadingScreenImage = ImageIO.read(new File("./data/loadingImage.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JLabel picLabel = new JLabel(new ImageIcon(loadingScreenImage));
+        loadingScreenFrame.add(picLabel, BorderLayout.CENTER);
+        loadingScreenFrame.add(loadingTextPanel, BorderLayout.PAGE_END);
+        loadingScreenFrame.pack();
+        loadingScreenFrame.setMinimumSize(new Dimension(500,350));
+        loadingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loadingScreenFrame.setLocationRelativeTo(null);
+        loadingScreenFrame.setVisible(true);
+        doLoadAnimation(loadingScreenFrame, loadingLabel);
+    }
+
+    // MODIFIES: loadingLabel
+    // EFFECTS: Does ... animation for loading label
+    private void doLoadAnimation(JFrame splashScreenFrame, JLabel loadingLabel) {
+        try {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 3; j++) {
+                    String prevText = loadingLabel.getText();
+                    loadingLabel.setText(prevText + ".");
+                    splashScreenFrame.pack();
+                    splashScreenFrame.repaint();
+                    Thread.sleep(1000);
+                }
+                loadingLabel.setText("Loading");
+                splashScreenFrame.pack();
+                splashScreenFrame.repaint();
+                Thread.sleep(1000);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // MODIFIES: this
