@@ -115,11 +115,8 @@ public class ReviewListener implements ActionListener {
         JButton editButton = new JButton("edit card");
         JButton deleteButton = new JButton("delete card");
 
-        innerButtonPanel.add(previousButton);
-        innerButtonPanel.add(editButton);
-        innerButtonPanel.add(backButton);
-        innerButtonPanel.add(deleteButton);
-        innerButtonPanel.add(nextButton);
+        addReviewButtons(innerButtonPanel, nextButton, previousButton,
+                backButton, editButton, deleteButton);
 
         nextButton.setActionCommand("next");
         nextButton.addActionListener(this);
@@ -154,11 +151,8 @@ public class ReviewListener implements ActionListener {
         JButton editButton = new JButton("edit card");
         JButton deleteButton = new JButton("delete card");
 
-        innerButtonPanel.add(previousButton);
-        innerButtonPanel.add(editButton);
-        innerButtonPanel.add(frontButton);
-        innerButtonPanel.add(deleteButton);
-        innerButtonPanel.add(nextButton);
+        addReviewButtons(innerButtonPanel, nextButton, previousButton,
+                frontButton, editButton, deleteButton);
 
         nextButton.setActionCommand("next");
         nextButton.addActionListener(this);
@@ -178,6 +172,17 @@ public class ReviewListener implements ActionListener {
         buttonPanel = new JPanel();
         buttonPanel.add(innerButtonPanel);
         frame.add(buttonPanel, BorderLayout.PAGE_END);
+    }
+
+    // MODIFIES: innerButtonPanel
+    // EFFECTS: adds buttons to button panel
+    private void addReviewButtons(JPanel innerButtonPanel, JButton nextButton, JButton previousButton,
+                                  JButton backFrontButton, JButton editButton, JButton deleteButton) {
+        innerButtonPanel.add(previousButton);
+        innerButtonPanel.add(editButton);
+        innerButtonPanel.add(backFrontButton);
+        innerButtonPanel.add(deleteButton);
+        innerButtonPanel.add(nextButton);
     }
 
     // MODIFIES: this

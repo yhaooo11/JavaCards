@@ -2,12 +2,9 @@ package ui;
 
 import model.FlashcardDeck;
 import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -133,14 +130,21 @@ public class FlashcardAppGUI extends JFrame {
         saveButton.setActionCommand("Save");
         saveButton.addActionListener(new SaveListener(decks));
 
+        addButtons(buttonPanel, reviewButton, addButton, deleteButton, editButton, saveButton);
+        JPanel outerPanel = new JPanel();
+        outerPanel.add(buttonPanel);
+        add(outerPanel, BorderLayout.PAGE_END);
+    }
+
+    // MODIFIES: buttonPanel
+    // EFFECTS: adds review, add deck, delete deck, edit deck, and save button to button panel
+    private void addButtons(JPanel buttonPanel, JButton reviewButton, JButton addButton,
+                            JButton deleteButton, JButton editButton, JButton saveButton) {
         buttonPanel.add(reviewButton);
         buttonPanel.add(addButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(editButton);
         buttonPanel.add(saveButton);
-        JPanel outerPanel = new JPanel();
-        outerPanel.add(buttonPanel);
-        add(outerPanel, BorderLayout.PAGE_END);
     }
 
 }
