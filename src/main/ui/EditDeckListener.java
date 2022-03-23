@@ -128,7 +128,7 @@ public class EditDeckListener implements ActionListener {
         deck.setName(newName);
 
         editNameFrame.dispose();
-        mainFrame.updateDecksList();
+        mainFrame.updateDecksList(decks);
         mainFrame.repaint();
     }
 
@@ -186,7 +186,7 @@ public class EditDeckListener implements ActionListener {
 
         addCardFrame.pack();
         addCardFrame.repaint();
-        mainFrame.updateDecksList();
+        mainFrame.updateDecksList(decks);
         mainFrame.repaint();
     }
 

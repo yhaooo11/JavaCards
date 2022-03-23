@@ -24,5 +24,10 @@
         "cards": [],
         "currentCard": 0,
         "name": "new deck 2"
+    },
+    {
+        "cards": [],
+        "currentCard": 0,
+        "name": "new deck 3"
     }
 ]}

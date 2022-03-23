@@ -65,14 +65,14 @@ public class AddDeckListener implements ActionListener {
         String name = nameField.getText();
         if (name.length() == 0) {
             frame.dispose();
-            mainFrame.updateDecksList();
+            mainFrame.updateDecksList(decks);
             mainFrame.repaint();
             return;
         }
         FlashcardDeck deck = new FlashcardDeck(name);
         decks.add(deck);
         frame.dispose();
-        mainFrame.updateDecksList();
+        mainFrame.updateDecksList(decks);
         mainFrame.repaint();
     }
 }

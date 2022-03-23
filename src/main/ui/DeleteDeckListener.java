@@ -35,7 +35,7 @@ public class DeleteDeckListener implements ActionListener {
             return;
         }
         decks.remove(list.getSelectedIndex());
-        mainFrame.updateDecksList();
+        mainFrame.updateDecksList(decks);
         mainFrame.repaint();
     }
 }

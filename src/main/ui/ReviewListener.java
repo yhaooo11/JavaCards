@@ -74,7 +74,7 @@ public class ReviewListener implements ActionListener {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.out.println("WindowClosingDemo.windowClosing");
-                mainFrame.updateDecksList();
+                mainFrame.updateDecksList(decks);
                 mainFrame.repaint();
                 System.out.println(deck.getCardsReviewed());
             }
@@ -92,10 +92,11 @@ public class ReviewListener implements ActionListener {
     private void createCardPanel() {
         cardPanel = new JPanel();
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
-        //JLabel frontText = new JLabel(String.valueOf(list.getSelectedIndex()));
         cardText = new JLabel(card.getFrontText());
+        cardText.setFont(new Font("SansSerif", Font.PLAIN, 24));
 
         cardPanel.add(cardText);
+        cardPanel.setBorder(new EmptyBorder(80,0,0,0));
         cardPanel.setBackground(Color.white);
         createReviewButtonsFront();
 
@@ -192,6 +193,7 @@ public class ReviewListener implements ActionListener {
         cardText.setText(card.getFrontText());
         frame.remove(buttonPanel);
         createReviewButtonsFront();
+        frame.pack();
         frame.repaint();
     }
 
@@ -202,6 +204,7 @@ public class ReviewListener implements ActionListener {
         cardText.setText(card.getFrontText());
         frame.remove(buttonPanel);
         createReviewButtonsFront();
+        frame.pack();
         frame.repaint();
     }
 
@@ -282,7 +285,7 @@ public class ReviewListener implements ActionListener {
         if (deck.length() == 1) {
             deck.deleteCard(card);
             frame.dispose();
-            mainFrame.updateDecksList();
+            mainFrame.updateDecksList(decks);
             mainFrame.repaint();
         } else {
             deck.deleteCard(card);

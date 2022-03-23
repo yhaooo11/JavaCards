@@ -25,6 +25,11 @@ public class SaveListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Save")) {
             saveDecks();
+        } else if (e.getActionCommand().equals("close save")) {
+            saveDecks();
+            System.exit(0);
+        } else if (e.getActionCommand().equals("no save")) {
+            System.exit(0);
         }
     }
 
