@@ -15,6 +15,7 @@ public class EditDeckListener implements ActionListener {
     private JList list;
     private FlashcardAppGUI mainFrame;
     private FlashcardDeck deck;
+    private int selectedIndex;
 
     private JTextField nameTextField;
     private JFrame editNameFrame;
@@ -23,12 +24,12 @@ public class EditDeckListener implements ActionListener {
     private JTextField backTextField;
     private JPanel confirmTextPanel;
 
-    // EFFECTS: constructs an edit deck listener with given decks, JList, and FlashcardAppGUI
+    // EFFECTS: constructs an edit deck listener with given decks, JList, selectedIndex of 0, and FlashcardAppGUI
     public EditDeckListener(LinkedList<FlashcardDeck> decks, JList list, FlashcardAppGUI mainFrame) {
         this.decks = decks;
         this.list = list;
         this.mainFrame = mainFrame;
-
+        this.selectedIndex = 0;
     }
 
     @Override
@@ -39,13 +40,14 @@ public class EditDeckListener implements ActionListener {
             if (list.getModel().getSize() == 0) {
                 return;
             }
+            selectedIndex = list.getSelectedIndex();
             editDeck();
         } else if (e.getActionCommand().equals("edit name")) {
             editDeckName();
         } else if (e.getActionCommand().equals("confirm name")) {
             changeDeckName();
         } else if (e.getActionCommand().equals("add card")) {
-            this.deck = decks.get(list.getSelectedIndex());
+            this.deck = decks.get(selectedIndex);
             addCardFrame();
         } else if (e.getActionCommand().equals("confirm add")) {
             addCard();
@@ -57,7 +59,7 @@ public class EditDeckListener implements ActionListener {
     private void editDeck() {
         FlashcardDeck deck = decks.get(list.getSelectedIndex());
 
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Edit deck");
         frame.setMinimumSize(new Dimension(200, 120));
         frame.setLayout(new BorderLayout());
 
@@ -179,7 +181,6 @@ public class EditDeckListener implements ActionListener {
         deck.addCard(new Flashcard(frontText, backText));
 
         JLabel confirmMessage = new JLabel("Card added");
-
 
         confirmTextPanel.removeAll();
         confirmTextPanel.add(confirmMessage);

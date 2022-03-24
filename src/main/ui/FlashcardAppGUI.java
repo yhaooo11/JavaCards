@@ -1,7 +1,6 @@
 package ui;
 
 import model.FlashcardDeck;
-import persistence.JsonReader;
 
 // source: https://docs.oracle.com/javase/7/docs/api/javax/imageio/ImageIO.html
 import javax.imageio.ImageIO;
@@ -9,8 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,35 +19,52 @@ public class FlashcardAppGUI extends JFrame {
     private static final int HEIGHT = 500;
     private static final String JSON_STORE = "./data/decks.json";
     private LinkedList<FlashcardDeck> decks;
-    private JsonReader jsonReader;
 
     private JList list;
     private DefaultListModel listModel;
 
-    // EFFECTS: runs the flashcard app GUI (saves decks on close)
+    // EFFECTS: runs the flashcard app GUI by first asking for load
     public FlashcardAppGUI() {
         super("Flashcard App");
-        initFields();
         createLoadingScreen();
-        initGraphics();
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                SaveListener saveListener = new SaveListener(decks);
-                saveListener.saveDecks();
-            }
-        });
+        askLoad();
     }
 
-    // MODIFIES: this
-    // EFFECTS: initializes user's decks from file, and jsonReader/Writer
-    private void initFields() {
-        decks = new LinkedList<>();
-        jsonReader = new JsonReader(JSON_STORE);
-        loadDecks();
+    // MODIFIES: remindSaveFrame
+    // EFFECTS: Creates dialog that asks user whether they want to save decks to file
+    public void createSaveDialog(JFrame remindSaveFrame, LinkedList<FlashcardDeck> decks) {
+        JDialog saveDialog = new JDialog(remindSaveFrame);
+
+        JPanel textPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
+
+        saveDialog.setLayout(new BorderLayout());
+
+        saveDialog.setMinimumSize(new Dimension(400, 200));
+        saveDialog.setResizable(false);
+
+        JLabel remindLabel = new JLabel("Would you like to save?");
+        textPanel.add(remindLabel);
+
+        JButton yesButton = new JButton("Yes");
+        yesButton.addActionListener(new SaveListener(decks));
+        yesButton.setActionCommand("close save");
+
+        JButton noButton = new JButton("No");
+        noButton.addActionListener(new SaveListener(decks));
+        noButton.setActionCommand("no save");
+
+        buttonPanel.add(yesButton);
+        buttonPanel.add(noButton);
+
+        saveDialog.add(textPanel, BorderLayout.CENTER);
+        saveDialog.add(buttonPanel, BorderLayout.PAGE_END);
+        saveDialog.setLocationRelativeTo(null);
+        saveDialog.pack();
+        saveDialog.setVisible(true);
     }
 
-    // EFFECTS: creates splash screen for 8 seconds
+    // EFFECTS: creates splash screen for 4 seconds
     private void createLoadingScreen() {
         JFrame loadingScreenFrame = new JFrame();
         loadingScreenFrame.setLayout(new BorderLayout());
@@ -73,6 +87,7 @@ public class FlashcardAppGUI extends JFrame {
         loadingScreenFrame.setLocationRelativeTo(null);
         loadingScreenFrame.setVisible(true);
         doLoadAnimation(loadingScreenFrame, loadingLabel);
+        loadingScreenFrame.dispose();
     }
 
     // MODIFIES: loadingLabel
@@ -85,12 +100,12 @@ public class FlashcardAppGUI extends JFrame {
                     loadingLabel.setText(prevText + ".");
                     splashScreenFrame.pack();
                     splashScreenFrame.repaint();
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 }
                 loadingLabel.setText("Loading");
                 splashScreenFrame.pack();
                 splashScreenFrame.repaint();
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,46 +113,32 @@ public class FlashcardAppGUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads decks from file
-    private void loadDecks() {
-        try {
-            decks = jsonReader.read();
-            System.out.println("Loaded " + decks.size() + " decks from " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS:  draws the JFrame window where this DrawingEditor will operate, and populates the tools to be used
-    //           to manipulate this drawing
-    private void initGraphics() {
+    // EFFECTS:  draws the JFrame window where this flashcard app will operate
+    public void initGraphics(LinkedList<FlashcardDeck> decks) {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        JLabel header = new JLabel("  Current decks loaded from " + JSON_STORE, JLabel.LEFT);
-        add(header, BorderLayout.NORTH);
-        createDeckList();
-        createButtonPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        createDeckList(decks);
+        createButtonPanel(decks);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-
+    // source: https://docs.oracle.com/javase/tutorial/displayCode.html?code=
+    // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ListDemoProject/src/
+    // components/ListDemo.java
     // MODIFIES: this
     // EFFECTS: Adds list of decks to frame
-    private void createDeckList() {
+    private void createDeckList(LinkedList<FlashcardDeck> decks) {
         JPanel listArea = new JPanel();
         listArea.setLayout(new BorderLayout());
         listModel = new DefaultListModel();
-        addDecksToList();
+        addDecksToList(decks);
 
-        //Create the list and put it in a scroll pane.
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setSelectedIndex(0);
+        System.out.println(listModel.size());
 
-        //list.addListSelectionListener(listArea);
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
 
@@ -150,7 +151,7 @@ public class FlashcardAppGUI extends JFrame {
 
     // MODIFIES: listModel
     // EFFECTS: adds decks to listModel in the form name (# cards reviewed out of # cards)
-    private void addDecksToList() {
+    public void addDecksToList(LinkedList<FlashcardDeck> decks) {
         for (int i = 0; i < decks.size(); i++) {
             listModel.addElement(decks.get(i).getName() + " ("
                     + decks.get(i).getCardsReviewed() + " out of " + decks.get(i).length() + " reviewed)");
@@ -159,14 +160,17 @@ public class FlashcardAppGUI extends JFrame {
 
     // MODIFIES: listModel
     // EFFECTS: updates listModel with current decks
-    public void updateDecksList() {
-        listModel.removeAllElements();
-        addDecksToList();
+    public void updateDecksList(LinkedList<FlashcardDeck> decks) {
+        //System.out.println(decks.size());
+        if (listModel.size() != 0) {
+            listModel.removeAllElements();
+        }
+        addDecksToList(decks);
     }
 
     // MODIFIES: this
     // EFFECTS: adds deck action buttons to frame
-    private void createButtonPanel() {
+    private void createButtonPanel(LinkedList<FlashcardDeck> decks) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.setBorder(new EmptyBorder(new Insets(50, 0, 50, 0)));
@@ -192,6 +196,7 @@ public class FlashcardAppGUI extends JFrame {
         saveButton.addActionListener(new SaveListener(decks));
 
         addButtons(buttonPanel, reviewButton, addButton, deleteButton, editButton, saveButton);
+
         JPanel outerPanel = new JPanel();
         outerPanel.add(buttonPanel);
         add(outerPanel, BorderLayout.PAGE_END);
@@ -206,6 +211,43 @@ public class FlashcardAppGUI extends JFrame {
         buttonPanel.add(deleteButton);
         buttonPanel.add(editButton);
         buttonPanel.add(saveButton);
+    }
+
+    public void setDeck(LinkedList<FlashcardDeck> decks) {
+        this.decks = decks;
+    }
+
+
+    // EFFECTS: asks users if they want to load decks from file
+    private void askLoad() {
+        JFrame askLoadFrame = new JFrame("Load decks?");
+        askLoadFrame.setLayout(new BorderLayout());
+        askLoadFrame.setMinimumSize(new Dimension(400, 200));
+        askLoadFrame.setResizable(false);
+
+        JPanel textPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
+
+        JLabel loadLabel = new JLabel("Would you like to load decks from " + JSON_STORE);
+        textPanel.add(loadLabel);
+
+        JButton yesButton = new JButton("Yes");
+        yesButton.setActionCommand("load");
+        yesButton.addActionListener(new LoadListener(askLoadFrame, this));
+
+
+        JButton noButton = new JButton("No");
+        noButton.setActionCommand("don't load");
+        noButton.addActionListener(new LoadListener(askLoadFrame, this));
+
+        buttonPanel.add(yesButton);
+        buttonPanel.add(noButton);
+
+        askLoadFrame.add(textPanel, BorderLayout.CENTER);
+        askLoadFrame.add(buttonPanel, BorderLayout.PAGE_END);
+        askLoadFrame.setLocationRelativeTo(null);
+        askLoadFrame.pack();
+        askLoadFrame.setVisible(true);
     }
 
 }

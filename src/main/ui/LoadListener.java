@@ -18,6 +18,7 @@ public class LoadListener implements ActionListener {
     private FlashcardAppGUI flashcardAppGUI;
     private JFrame askLoadFrame;
 
+    // EFFECTS: constructs load decks listener with no decks, jsonReader, load frame, and FlashcardAppGUI
     public LoadListener(JFrame askLoadFrame, FlashcardAppGUI flashcardAppGUI) {
         this.decks = null;
         this.jsonReader = new JsonReader(JSON_STORE);
@@ -26,10 +27,11 @@ public class LoadListener implements ActionListener {
     }
 
     @Override
+    // MODIFIES: this
+    // EFFECTS: processes action command
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("load")) {
             loadDecks();
-            System.out.println(decks.size());
             flashcardAppGUI.initGraphics(decks);
             addSaveOnCloseListener();
             askLoadFrame.dispose();
@@ -41,6 +43,8 @@ public class LoadListener implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds on window close listener to flashcardAppGUI that asks user to save
     private void addSaveOnCloseListener() {
         flashcardAppGUI.addWindowListener(new WindowAdapter() {
             @Override
@@ -56,8 +60,6 @@ public class LoadListener implements ActionListener {
     private void loadDecks() {
         try {
             decks = jsonReader.read();
-            //flashcardAppGUI.setDeck(decks);
-            System.out.println("Loaded " + decks.size() + " decks from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

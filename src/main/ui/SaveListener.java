@@ -21,7 +21,7 @@ public class SaveListener implements ActionListener {
     }
 
     @Override
-    // EFFECTS: saves deck if save button clicked
+    // EFFECTS: processes action command
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Save")) {
             saveDecks();
