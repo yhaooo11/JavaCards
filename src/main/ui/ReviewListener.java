@@ -37,7 +37,8 @@ public class ReviewListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Review")) {
-            if (list.getModel().getSize() == 0 || decks.get(list.getSelectedIndex()).length() == 0) {
+            if (list.isSelectionEmpty() || list.getModel().getSize() == 0
+                    || decks.get(list.getSelectedIndex()).length() == 0) {
                 return;
             }
             this.deck = decks.get(list.getSelectedIndex());
@@ -73,10 +74,8 @@ public class ReviewListener implements ActionListener {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("WindowClosingDemo.windowClosing");
                 mainFrame.updateDecksList(decks);
                 mainFrame.repaint();
-                System.out.println(deck.getCardsReviewed());
             }
         });
 

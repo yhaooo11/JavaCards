@@ -37,17 +37,17 @@ public class EditDeckListener implements ActionListener {
     // EFFECTS: processes action commands
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Edit deck")) {
-            if (list.getModel().getSize() == 0) {
+            if (list.getModel().getSize() == 0 || list.isSelectionEmpty()) {
                 return;
             }
             selectedIndex = list.getSelectedIndex();
+            this.deck = decks.get(selectedIndex);
             editDeck();
         } else if (e.getActionCommand().equals("edit name")) {
             editDeckName();
         } else if (e.getActionCommand().equals("confirm name")) {
             changeDeckName();
         } else if (e.getActionCommand().equals("add card")) {
-            this.deck = decks.get(selectedIndex);
             addCardFrame();
         } else if (e.getActionCommand().equals("confirm add")) {
             addCard();
@@ -101,7 +101,7 @@ public class EditDeckListener implements ActionListener {
         JPanel namePanel = new JPanel();
 
         nameTextField = new JTextField(12);
-        nameTextField.setText(decks.get(list.getSelectedIndex()).getName());
+        nameTextField.setText(deck.getName());
 
         namePanel.add(new JLabel("Deck name:"));
         namePanel.add(nameTextField);
@@ -123,8 +123,6 @@ public class EditDeckListener implements ActionListener {
     // MODIFIES: this
     // EFFECTS: updates deck name and main frame
     private void changeDeckName() {
-        FlashcardDeck deck = decks.get(list.getSelectedIndex());
-
         String newName = nameTextField.getText();
 
         deck.setName(newName);

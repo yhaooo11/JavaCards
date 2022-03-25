@@ -64,6 +64,7 @@ public class FlashcardAppGUI extends JFrame {
         saveDialog.setVisible(true);
     }
 
+    // image loading source: https://docs.oracle.com/javase/7/docs/api/javax/imageio/ImageIO.html
     // EFFECTS: creates splash screen for 4 seconds
     private void createLoadingScreen() {
         JFrame loadingScreenFrame = new JFrame();
@@ -137,7 +138,7 @@ public class FlashcardAppGUI extends JFrame {
 
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        System.out.println(listModel.size());
+        list.setSelectedIndex(0);
 
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
@@ -161,7 +162,6 @@ public class FlashcardAppGUI extends JFrame {
     // MODIFIES: listModel
     // EFFECTS: updates listModel with current decks
     public void updateDecksList(LinkedList<FlashcardDeck> decks) {
-        //System.out.println(decks.size());
         if (listModel.size() != 0) {
             listModel.removeAllElements();
         }
@@ -176,47 +176,55 @@ public class FlashcardAppGUI extends JFrame {
         buttonPanel.setBorder(new EmptyBorder(new Insets(50, 0, 50, 0)));
 
         JButton reviewButton = new JButton("Review deck");
-        reviewButton.setActionCommand("Review");
-        reviewButton.addActionListener(new ReviewListener(decks, list, this));
-
+        JButton seeAllCardsButton = new JButton("See all cards");
         JButton addButton = new JButton("Add deck");
-        addButton.setActionCommand("Add deck");
-        addButton.addActionListener(new AddDeckListener(decks, this));
-
         JButton deleteButton = new JButton("Delete deck");
-        deleteButton.setActionCommand("Delete deck");
-        deleteButton.addActionListener(new DeleteDeckListener(decks, list,this));
-
         JButton editButton = new JButton("Edit deck");
-        editButton.setActionCommand("Edit deck");
-        editButton.addActionListener(new EditDeckListener(decks, list, this));
-
         JButton saveButton = new JButton("Save decks");
-        saveButton.setActionCommand("Save");
-        saveButton.addActionListener(new SaveListener(decks));
 
-        addButtons(buttonPanel, reviewButton, addButton, deleteButton, editButton, saveButton);
+        addActionListeners(decks, reviewButton, seeAllCardsButton, addButton, deleteButton, editButton, saveButton);
+
+        addButtons(buttonPanel, reviewButton, seeAllCardsButton, addButton, deleteButton, editButton, saveButton);
 
         JPanel outerPanel = new JPanel();
         outerPanel.add(buttonPanel);
         add(outerPanel, BorderLayout.PAGE_END);
     }
 
+    // MODIFIES: reviewButton, seeAllCardsButton, addButton, deleteButton, editButton, saveButton
+    // EFFECTS: sets action command and adds action listeners to each button
+    private void addActionListeners(LinkedList<FlashcardDeck> decks, JButton reviewButton, JButton seeAllCardsButton,
+                                    JButton addButton, JButton deleteButton, JButton editButton, JButton saveButton) {
+        reviewButton.setActionCommand("Review");
+        reviewButton.addActionListener(new ReviewListener(decks, list, this));
+
+        seeAllCardsButton.setActionCommand("See all");
+        seeAllCardsButton.addActionListener(new SeeAllCardsListener(decks, list));
+
+        addButton.setActionCommand("Add deck");
+        addButton.addActionListener(new AddDeckListener(decks, this));
+
+        deleteButton.setActionCommand("Delete deck");
+        deleteButton.addActionListener(new DeleteDeckListener(decks, list,this));
+
+        editButton.setActionCommand("Edit deck");
+        editButton.addActionListener(new EditDeckListener(decks, list, this));
+
+        saveButton.setActionCommand("Save");
+        saveButton.addActionListener(new SaveListener(decks));
+    }
+
     // MODIFIES: buttonPanel
     // EFFECTS: adds review, add deck, delete deck, edit deck, and save button to button panel
-    private void addButtons(JPanel buttonPanel, JButton reviewButton, JButton addButton,
+    private void addButtons(JPanel buttonPanel, JButton reviewButton, JButton seeAllCardsButton, JButton addButton,
                             JButton deleteButton, JButton editButton, JButton saveButton) {
         buttonPanel.add(reviewButton);
+        buttonPanel.add(seeAllCardsButton);
         buttonPanel.add(addButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(editButton);
         buttonPanel.add(saveButton);
     }
-
-    public void setDeck(LinkedList<FlashcardDeck> decks) {
-        this.decks = decks;
-    }
-
 
     // EFFECTS: asks users if they want to load decks from file
     private void askLoad() {
@@ -249,5 +257,4 @@ public class FlashcardAppGUI extends JFrame {
         askLoadFrame.pack();
         askLoadFrame.setVisible(true);
     }
-
 }

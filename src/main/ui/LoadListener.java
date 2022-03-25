@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.LinkedList;
 
+// Represents the action listener for the load button
 public class LoadListener implements ActionListener {
     private static final String JSON_STORE = "./data/decks.json";
     private LinkedList<FlashcardDeck> decks;
