@@ -33,7 +33,7 @@ public class ReviewListener implements ActionListener {
 
 
     // MODIFIES: this
-    // EFFECTS: creates the review window
+    // EFFECTS: processes action command
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Review")) {
@@ -208,7 +208,7 @@ public class ReviewListener implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: displays card back text
+    // EFFECTS: displays card back text and changes buttons to back version
     private void showCardBack() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         card.setAsReviewed();
@@ -220,7 +220,7 @@ public class ReviewListener implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: displays card front text
+    // EFFECTS: displays card front text and changes buttons to front version
     private void showCardFront() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         cardText.setText(card.getFrontText());
@@ -267,7 +267,7 @@ public class ReviewListener implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: changes card front and back text to the user inputted ones
+    // EFFECTS: changes card front and back text to text field texts
     private void confirmEdit() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
         card.setFrontText(frontTextField.getText());

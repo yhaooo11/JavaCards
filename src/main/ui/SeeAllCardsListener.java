@@ -28,6 +28,9 @@ public class SeeAllCardsListener implements ActionListener {
                 return;
             }
             FlashcardDeck deck = decks.get(list.getSelectedIndex());
+            if (deck.length() == 0) {
+                return;
+            }
             seeAllCards(deck);
         }
     }

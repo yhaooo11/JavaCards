@@ -45,7 +45,7 @@ public class LoadListener implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds on window close listener to flashcardAppGUI that asks user to save
+    // EFFECTS: adds window close listener to flashcardAppGUI that asks user to save before close
     private void addSaveOnCloseListener() {
         flashcardAppGUI.addWindowListener(new WindowAdapter() {
             @Override

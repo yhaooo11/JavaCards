@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-// Represents the action listener for the add deck button and associated buttons
+// Represents the action listener for the add deck button
 public class AddDeckListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
     private FlashcardAppGUI mainFrame;

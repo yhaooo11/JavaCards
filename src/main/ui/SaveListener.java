@@ -33,7 +33,7 @@ public class SaveListener implements ActionListener {
         }
     }
 
-    // MODIFIES: this, json store file
+    // MODIFIES: this
     // EFFECTS: saves all decks to file
     public void saveDecks() {
         try {

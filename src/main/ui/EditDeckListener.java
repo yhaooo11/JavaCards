@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-// Represents the action listener for the edit deck button and associated buttons
+// Represents the action listener for the edit deck button
 public class EditDeckListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
     private JList list;
@@ -55,7 +55,7 @@ public class EditDeckListener implements ActionListener {
 
     }
 
-    // EFFECTS: creates edit deck frame with name of to be edited deck, and edit name and add card buttons
+    // EFFECTS: creates edit deck frame with name of selected deck, and edit name and add card buttons
     private void editDeck() {
         FlashcardDeck deck = decks.get(list.getSelectedIndex());
 
