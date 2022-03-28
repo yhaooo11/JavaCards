@@ -270,8 +270,13 @@ public class ReviewListener implements ActionListener {
     // EFFECTS: changes card front and back text to text field texts
     private void confirmEdit() {
         Flashcard card = deck.getCard(deck.getCurrentCardNum());
-        card.setFrontText(frontTextField.getText());
-        card.setBackText(backTextField.getText());
+        if (!card.getFrontText().equals(frontTextField.getText())) {
+            card.setFrontText(frontTextField.getText());
+
+        }
+        if (!card.getBackText().equals(backTextField.getText())) {
+            card.setBackText(backTextField.getText());
+        }
         editFrame.dispose();
         showCardFront();
     }

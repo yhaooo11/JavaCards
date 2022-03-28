@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.FlashcardDeck;
 
 // source: https://docs.oracle.com/javase/7/docs/api/javax/imageio/ImageIO.html
@@ -8,6 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +32,18 @@ public class FlashcardAppGUI extends JFrame {
         super("Flashcard App");
         createLoadingScreen();
         askLoad();
+        printEventsOnClose();
+    }
+
+    private void printEventsOnClose() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event next : EventLog.getInstance()) {
+                    System.out.println(next.toString());
+                }
+            }
+        });
     }
 
     // MODIFIES: remindSaveFrame

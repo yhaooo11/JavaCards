@@ -22,12 +22,14 @@ public class FlashcardDeck implements Writable {
         deck = new LinkedList<>();
         this.name = name;
         currentCard = 0;
+        EventLog.getInstance().logEvent(new Event("New deck created"));
     }
 
     // MODIFIES: this
     // EFFECTS: adds the given flashcard to the end of the deck
     public void addCard(Flashcard card) {
         deck.add(card);
+        EventLog.getInstance().logEvent(new Event("Flashcard added to deck " + name));
     }
 
     // REQUIRES: Deck has at least one card and cardIndex >= 0 and < length of deck
@@ -39,6 +41,8 @@ public class FlashcardDeck implements Writable {
         if (cardIndex == length()) {
             currentCard = 0;
         }
+
+        EventLog.getInstance().logEvent(new Event("Card deleted from deck " + name));
     }
 
     // REQUIRES: Deck has the given card in it
@@ -51,6 +55,8 @@ public class FlashcardDeck implements Writable {
         if (index == length()) {
             currentCard = 0;
         }
+
+        EventLog.getInstance().logEvent(new Event("Card deleted from deck " + name));
     }
 
     // EFFECTS: returns the number of cards in this deck

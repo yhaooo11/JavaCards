@@ -1,5 +1,6 @@
 package ui;
 
+import model.EventLog;
 import model.FlashcardDeck;
 import persistence.JsonReader;
 
@@ -61,6 +62,7 @@ public class LoadListener implements ActionListener {
     private void loadDecks() {
         try {
             decks = jsonReader.read();
+            EventLog.getInstance().clear();
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

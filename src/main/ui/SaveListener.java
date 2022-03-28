@@ -40,7 +40,7 @@ public class SaveListener implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(decks);
             jsonWriter.close();
-            System.out.println("Saved " + decks.size() + " decks to " + JSON_STORE);
+            //System.out.println("Saved " + decks.size() + " decks to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }

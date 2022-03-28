@@ -27,6 +27,7 @@ public class Flashcard implements Writable {
     // EFFECTS: sets flashcard's front text to the given string
     public void setFrontText(String frontText) {
         this.frontText = frontText;
+        EventLog.getInstance().logEvent(new Event("Card front text changed"));
     }
 
     // REQUIRES: backText is not the empty string
@@ -34,6 +35,7 @@ public class Flashcard implements Writable {
     // EFFECTS: sets flashcard's front text to the given string
     public void setBackText(String backText) {
         this.backText = backText;
+        EventLog.getInstance().logEvent(new Event("Card back text changed"));
     }
 
     // MODIFIES: this
