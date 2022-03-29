@@ -12,9 +12,11 @@ import java.util.LinkedList;
 // Represents the event listener for the review button
 public class ReviewListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
+    private FlashcardDeck deck;
+    private FlashcardAppGUI mainFrame;
+
     private JList list;
     private JFrame frame;
-    private FlashcardAppGUI mainFrame;
     private JPanel cardPanel;
     private JPanel buttonPanel;
     private JLabel cardText;
@@ -22,7 +24,7 @@ public class ReviewListener implements ActionListener {
     private JTextField frontTextField;
     private JTextField backTextField;
 
-    private FlashcardDeck deck;
+
 
     // EFFECTS: creates a review listener with given flashcard decks, JList, and FlashcardAppGUI
     public ReviewListener(LinkedList<FlashcardDeck> decks, JList list, FlashcardAppGUI mainFrame) {

@@ -1,5 +1,7 @@
 package persistence;
 
+import model.Event;
+import model.EventLog;
 import model.FlashcardDeck;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +34,7 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of a list of decks to file
     public void write(LinkedList<FlashcardDeck> decks) {
+        EventLog.getInstance().logEvent(new Event("Saved decks to file"));
         JSONArray jsonArray = new JSONArray();
         for (FlashcardDeck deck : decks) {
             jsonArray.put(deck.toJson());

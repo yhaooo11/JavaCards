@@ -12,6 +12,7 @@ import java.util.LinkedList;
 public class AddDeckListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
     private FlashcardAppGUI mainFrame;
+
     private JTextField nameField;
     private JFrame frame;
 

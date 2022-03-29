@@ -22,7 +22,6 @@ public class FlashcardAppGUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 500;
     private static final String JSON_STORE = "./data/decks.json";
-    private LinkedList<FlashcardDeck> decks;
 
     private JList list;
     private DefaultListModel listModel;
@@ -39,9 +38,7 @@ public class FlashcardAppGUI extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                for (Event next : EventLog.getInstance()) {
-                    System.out.println(next.toString());
-                }
+
             }
         });
     }

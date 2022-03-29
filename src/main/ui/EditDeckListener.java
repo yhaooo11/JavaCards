@@ -12,9 +12,10 @@ import java.util.LinkedList;
 // Represents the action listener for the edit deck button
 public class EditDeckListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
-    private JList list;
     private FlashcardAppGUI mainFrame;
     private FlashcardDeck deck;
+
+    private JList list;
     private int selectedIndex;
 
     private JTextField nameTextField;

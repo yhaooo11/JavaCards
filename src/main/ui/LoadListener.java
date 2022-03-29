@@ -18,6 +18,7 @@ public class LoadListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
     private JsonReader jsonReader;
     private FlashcardAppGUI flashcardAppGUI;
+
     private JFrame askLoadFrame;
 
     // EFFECTS: constructs load decks listener with no decks, jsonReader, load frame, and FlashcardAppGUI
@@ -62,7 +63,6 @@ public class LoadListener implements ActionListener {
     private void loadDecks() {
         try {
             decks = jsonReader.read();
-            EventLog.getInstance().clear();
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

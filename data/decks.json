@@ -39,8 +39,19 @@
         "name": "math 101"
     },
     {
-        "cards": [],
+        "cards": [
+            {
+                "back": "new card b",
+                "front": "new card f",
+                "reviewedStatus": false
+            },
+            {
+                "back": "12",
+                "front": "`12",
+                "reviewedStatus": false
+            }
+        ],
         "currentCard": 0,
-        "name": "hehe"
+        "name": "new deck"
     }
 ]}

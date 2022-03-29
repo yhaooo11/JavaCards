@@ -1,5 +1,7 @@
 package persistence;
 
+import model.Event;
+import model.EventLog;
 import model.Flashcard;
 import model.FlashcardDeck;
 import org.json.JSONArray;
@@ -28,7 +30,10 @@ public class JsonReader {
     public LinkedList<FlashcardDeck> read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseListOfDecks(jsonObject);
+        LinkedList<FlashcardDeck> decks = parseListOfDecks(jsonObject);
+        EventLog.getInstance().clear();
+        EventLog.getInstance().logEvent(new Event("Loaded decks from file"));
+        return decks;
     }
 
     // source: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo

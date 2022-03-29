@@ -11,6 +11,7 @@ import java.util.LinkedList;
 public class DeleteDeckListener implements ActionListener {
     private LinkedList<FlashcardDeck> decks;
     private FlashcardAppGUI mainFrame;
+
     private JList list;
 
     // EFFECTS: constructs delete deck action listener with given list of decks, JList, and FlashcardAppGUI

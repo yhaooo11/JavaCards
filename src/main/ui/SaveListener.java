@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.FlashcardDeck;
 import persistence.JsonWriter;
 
@@ -27,8 +29,14 @@ public class SaveListener implements ActionListener {
             saveDecks();
         } else if (e.getActionCommand().equals("close save")) {
             saveDecks();
+            for (Event next : EventLog.getInstance()) {
+                System.out.println(next.toString());
+            }
             System.exit(0);
         } else if (e.getActionCommand().equals("no save")) {
+            for (Event next : EventLog.getInstance()) {
+                System.out.println(next.toString());
+            }
             System.exit(0);
         }
     }
@@ -40,7 +48,6 @@ public class SaveListener implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(decks);
             jsonWriter.close();
-            //System.out.println("Saved " + decks.size() + " decks to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
