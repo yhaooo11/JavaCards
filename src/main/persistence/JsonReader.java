@@ -31,7 +31,6 @@ public class JsonReader {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         LinkedList<FlashcardDeck> decks = parseListOfDecks(jsonObject);
-        EventLog.getInstance().clear();
         EventLog.getInstance().logEvent(new Event("Loaded decks from file"));
         return decks;
     }
