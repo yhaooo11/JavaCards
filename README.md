@@ -47,4 +47,20 @@ Sun Mar 27 19:24:52 PDT 2022 \
 New deck created \
 Sun Mar 27 19:24:58 PDT 2022 \
 Card back text changed \
+Sun Mar 27 19:25:01 PDT 2022 \
+Saved decks to file
+
+## Phase 4: Task 3
+- All listener classes have an association with the FlashcardDeck class. 5/7 have an association 
+  with the FlashcardAppGUI class.
+  - Many listener classes have common implementations and fields.
+  - I would refactor this by adding two abstract classes. The highest one will have an association with the 
+    FlashcardDeck class. The other one will extend the highest one and have an association 
+    with the FlashcardAppGUI class.
+    5/7 listener classes will extend the second one, the other two will extend the first abstract class.
+  - Common implementations will be put into the abstract classes (for example, the constructors)
+- Another way to refactor is to use the observer pattern on the listener classes (the observables) that have 
+  an association with FlashcardAppGUI (the observer)
+  This is because these listeners need to update the GUI when a button is clicked
+
  

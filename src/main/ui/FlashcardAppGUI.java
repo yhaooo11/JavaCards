@@ -1,7 +1,5 @@
 package ui;
 
-import model.Event;
-import model.EventLog;
 import model.FlashcardDeck;
 
 // source: https://docs.oracle.com/javase/7/docs/api/javax/imageio/ImageIO.html
