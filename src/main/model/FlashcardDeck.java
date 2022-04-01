@@ -150,6 +150,7 @@ public class FlashcardDeck implements Writable {
     // EFFECTS: sets name of deck to given name
     public void setName(String name) {
         this.name = name;
+        EventLog.getInstance().logEvent(new Event("Deck name changed"));
     }
 
     // MODIFIES: this

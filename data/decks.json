@@ -1,57 +1,9 @@
-{"decks": [
-    {
-        "cards": [
-            {
-                "back": "22222",
-                "front": "11111",
-                "reviewedStatus": true
-            },
-            {
-                "back": "LOL",
-                "front": "OMG",
-                "reviewedStatus": true
-            },
-            {
-                "back": "123",
-                "front": "HEHEXD",
-                "reviewedStatus": false
-            }
-        ],
-        "currentCard": 1,
-        "name": "12345"
-    },
-    {
-        "cards": [{
-            "back": "phase 3",
-            "front": "project",
-            "reviewedStatus": true
-        }],
-        "currentCard": 0,
-        "name": "cpsc 210"
-    },
-    {
-        "cards": [{
-            "back": "1234",
-            "front": "pls",
-            "reviewedStatus": true
-        }],
-        "currentCard": 0,
-        "name": "math 101"
-    },
-    {
-        "cards": [
-            {
-                "back": "new card b",
-                "front": "new card f",
-                "reviewedStatus": false
-            },
-            {
-                "back": "12",
-                "front": "`12",
-                "reviewedStatus": false
-            }
-        ],
-        "currentCard": 0,
-        "name": "new deck"
-    }
-]}
+{"decks": [{
+    "cards": [{
+        "back": "phase 3",
+        "front": "project",
+        "reviewedStatus": true
+    }],
+    "currentCard": 0,
+    "name": "cpsc 210"
+}]}
