@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 Represents a deck of flashcards. A deck has a name and the index of the current card the user is to review.
  */
 
-public class FlashcardDeck implements Writable {
+public class FlashcardDeck implements Writable, Iterable<Flashcard> {
     private List<Flashcard> deck;
     private String name;
     private int currentCard;
@@ -191,5 +192,10 @@ public class FlashcardDeck implements Writable {
             jsonArray.put(card.toJson());
         }
         return jsonArray;
+    }
+
+    @Override
+    public Iterator<Flashcard> iterator() {
+        return deck.iterator();
     }
 }

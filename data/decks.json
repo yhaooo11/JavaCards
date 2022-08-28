@@ -1,9 +1,9 @@
 {"decks": [{
     "cards": [{
-        "back": "phase 3",
-        "front": "project",
-        "reviewedStatus": true
+        "back": "2",
+        "front": "1",
+        "reviewedStatus": false
     }],
     "currentCard": 0,
-    "name": "cpsc 210"
+    "name": "new deck"
 }]}
