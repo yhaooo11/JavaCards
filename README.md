@@ -1,6 +1,4 @@
-# CPSC 210 Personal Project
-
-## Flashcard  Application
+# JavaCards Flashcard  Application
 
 My application will center around the concept
 of *flashcards* and allow users to:
